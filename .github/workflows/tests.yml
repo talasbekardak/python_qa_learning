@@ -8,13 +8,5 @@ jobs:
     steps:
       - name: Получить код из репозитория
         uses: actions/checkout@v4
-      - name: Установить Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-      - name: Установить зависимости
-        run: pip install -r requirements.txt
-      - name: Установить браузер
-        run: playwright install chromium --with-deps
-      - name: Запустить тесты
-        run: pytest tests/ -v
+      - name: Собрать и запустить тесты в Docker
+        run: docker build -t qa-tests . && docker run qa-tests
